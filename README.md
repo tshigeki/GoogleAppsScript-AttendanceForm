@@ -20,6 +20,11 @@ V. デプロイメントをおこなう。
 
 以上の手順を踏むことで，動作します。
 
+参考にさせていただいたサイト
+https://qiita.com/tamoco/items/8d0d6ef0df6c4c605a08
+こちらのサイトのおかげで，作成することができました。
+このほか，javascript関連，ならびにCORSエラーの回避法など，多くのサイトを参考にさせていただきました。感謝いたします。
+
 ===README in Eng.===
 This is an attendance form that works as a GAS in GoogleSpreadSheet. It was created for the purpose of surveying attendance at a university.
 This GAS is deployed and used as a web app.
@@ -42,3 +47,8 @@ IV. Change the parameters of code.gs as necessary.
 V. Perform deployment.
 
 The above steps will make the application work.
+
+referenced site
+https://qiita.com/tamoco/items/8d0d6ef0df6c4c605a08
+Special thanks to @tamoco.
+In addition, many other sites related to javascript and workarounds for CORS errors were also helpful. Thank you very much.
