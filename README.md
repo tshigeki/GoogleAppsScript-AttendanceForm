@@ -5,7 +5,7 @@ GASのWebアプリURLを開くと，フォーム画面が表示され，回答�
 <準備>
 I.スプレッドシートには事前に”名簿”，”出席”，”集計”シートを事前準備しておく必要があります。以下に各シートの列配置を示します。
 1. 名簿シート
- A列: 学籍番号，B列: 氏名
+ A列: 学籍番号，B列: 氏名 
 2. 出席シート(フォームからの入力内容)
  A列: 学籍番号，B列: 緯度，C列: 経度, D列: DeviceID, E列: 入力日
 3. 集計シート
@@ -29,7 +29,7 @@ This is an attendance form that works as a GAS in GoogleSpreadSheet. It was crea
 This GAS is deployed and used as a web app.
 When the GAS web app URL is opened, the form screen is displayed, and attendance is recorded in SpreadSheet when the user answers.
 
-<Preparation
+<Preparation>
 I. The "Roster", "Attendance", and "Total" sheets must be prepared in advance in SpreadSheet. The column layout of each sheet is shown below. 1.
 　1. name list sheet
  　Column A: Student ID number, Column B: Name  
