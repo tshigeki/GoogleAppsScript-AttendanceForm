@@ -1,8 +1,7 @@
 <p>GoogleSpreadSheetのGASとして動作する出席フォームです。大学での出席調査を目的に作成しました。<br>
-このGASはWebアプリとしてデプロイして利用します。<br>
-GASのWebアプリURLを開くと，フォーム画面が表示され，回答すると，SpreadSheetに出席が記録されます。</p>
+このGASはWebアプリとしてデプロイして利用します。GASのWebアプリURLを開くと，フォーム画面が表示され，回答すると，SpreadSheetに出席が記録されます。</p>
 
-## このGASを用いたフォームの特徴は，GPS情報から，学内に居るかを判定する・同じデバイス情報で，一定時間内に異なる学籍番号による出席登録を拒否・学籍リストによる誤入力の防止・出席をとる曜日・時間と長さを定義可能という点です。
+## このGASを用いたフォームの特徴は，GPS情報から，学内に居るかを判定する・同じデバイス情報で，一定時間内に異なる学籍番号による出席登録を拒否・学籍リストによる誤入力の防止・出席をとる曜日・時間と長さを定義可能・GASによって出席フォームhtmlを作成するので，WEBサーバが不要という点です。
 
 ### <準備>
 ### I.スプレッドシートには事前に”名簿”，”出席”，”集計”シートを事前準備しておく必要があります。以下に各シートの列配置を示します。<br>
@@ -31,7 +30,7 @@ This is an attendance form that works as a GAS in GoogleSpreadSheet. It was crea
 This GAS is deployed and used as a web app.<br>
 When the GAS web app URL is opened, the form screen is displayed, and attendance is recorded in SpreadSheet when the user answers.</p>
 
-## The feature of this GAS-based form is to determine whether the student is on campus based on GPS information. Reject attendance registration by different student ID numbers within a certain period of time using the same device information. Prevention of wrong entry by the student registration list. The day of the week, time, and length of attendance can be defined.
+## The features of the form using GAS are as follows: judging whether the user is in the campus based on GPS information, rejecting attendance registration by different student ID numbers within a certain period of time using the same device information, preventing wrong input by the student ID list, defining the day, time, and length of attendance, and creating attendance form html using GAS, so a web server is not necessary.
 ## <Preparation>
 ### I. The "Name list", "Attendance", and "Total" sheets must be prepared in advance in SpreadSheet. The column layout of each sheet is shown below. 1.
 #### 1. Name list sheet
