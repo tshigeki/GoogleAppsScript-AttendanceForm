@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>出席・位置情報登録システム</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
+<style>
+input[type=text], button {
+	width: 100%;
+	padding: 10px 18px;
+	margin: 6px 0;
+	display: inline-block;
+	border: 1px solid #ccc;
+	box-sizing: border-box;
+}
+ .title {
+  font-size: 18px;
+  text-align: center; 
+  color: black;
+  }
+  /* スマートフォンの縦画面に最適化 */
+  @media screen and (max-width: 480px) {
+    .container {
+      width: 100%;
+      padding: 0 20px;
+    }
+    .column {
+      width: 100%;
+      margin: 0 auto;
+    }
+    }
+	.box {
+	background-color: #ffe6e6;
+	}
+ .label {
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center; 
+  }
+  #submit-button {
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center; 
+  }
+  .center-text {
+  text-align: center;
+  }
+</style>
+
+</head>
+<body>
+  <div class="container">
+    <div class="column is-half is-offset-one-quarter">
+      <div class="box">
+	  <img src="https://lh3.googleusercontent.com/d/FILE_ID" alt="大学ロゴ" style="display: block; margin-left: auto; margin-right: auto; width: 50%">
+        <h1 class="title has-text-centered" style="margin-top: 1em;">科目名: テスト環境用（xxxx-xxx）を使用可</h1>
+        <h1 class="title has-text-centered">出席と位置情報を記録します。<br>必ず『ユーザーの現在地の認識』を許可してください。</h1>
+        <form id="attendance-form" onsubmit="submitForm()">
+          <div class="field">
+            <!--    <label class="label">学籍番号</label> -->
+            <div class="control">
+              <input id="id" class="input" type="text" placeholder="学籍番号 (例:xxxx-xxx) を入力" required>
+            </div>
+          </div>
+          <div class="field">
+            <!--  <label class="label">デバイス固有ID</label> -->
+            <div class="control">
+              <input id="device" class="input" type="hidden" placeholder="デバイス固有IDを取得中..." readonly required>
+            </div>
+          </div>
+          <div class="field">
+            <!--  <label class="label">緯度</label> -->
+            <div class="control">
+              <input id="lat" class="input" type="hidden" placeholder="現在の緯度を取得中..." readonly required>
+            </div>
+          </div>
+          <div class="field">
+            <!-- <label class="label">経度</label> -->
+            <div class="control">
+              <input id="lon" class="input" type="hidden" placeholder="現在の経度を取得中..." readonly required>
+            </div>
+          </div>
+          <!-- Googleマップへのリンクを追加 -->
+          <p class="center-text">
+            <a href="https://www.google.co.jp/maps/?entry=ttu" target="_blank" rel="noopener noreferrer">MAPで自分の位置確認</a><br>
+            <a href="https://lh3.googleusercontent.com/d/1gW74HaUkgbwOinHXsyIj31ocNpiKGLHF" target="_blank" rel="noopener noreferrer">ブラウザ「設定」の確認方法</a>
+          </p>
+          <div class="field">
+            <div class="control">
+              <button id="submit-button" type="submit" class="button is-info">出席登録</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+<script>
+function submitForm() {
+  event.preventDefault();
+  var id = document.getElementById('id').value;
+  var device = document.getElementById('device').value;
+  var lat = parseFloat(document.getElementById('lat').value);
+  var lon = parseFloat(document.getElementById('lon').value);
+
+
+  // 学籍番号がリストに含まれているかチェック
+  var allowedIds = ['xxxx-xxx'];
+  if (!allowedIds.includes(id)) {
+    alert("学籍番号が履修者名簿に登録されていないか，正しい形式ではありません。\n必ず1524-999のように半角で‐付きで入力してください。");
+    return;
+  }
+
+  // クライアント側の現在時刻を取得
+  var now = new Date();
+  var day = now.getDay();
+  var hour = now.getHours();
+  var minute = now.getMinutes();
+
+  // 曜日判定
+  if (day !== 0 && day !== 1 && day !== 2 && day !== 3 && day !== 4 && day !== 5 && day !== 6 ) {
+    alert("現在は出席入力期間外です（曜日判定）。");
+    return;
+  }
+
+  // 時間比較
+  var timeInMinutes = hour * 60 + minute;
+  if (!(timeInMinutes >= 0 && timeInMinutes <= 1439)) {
+    alert("現在は出席入力期間外です（時間判定）。");
+    return;
+  }
+
+  // 緯度・経度が指定範囲内にあるかチェック(サンプルは日本全国)
+  var minLat = 24, maxLat = 45.5, minLon = 122.93457, maxLon = 153.986672;
+  if (lat < minLat || lat > maxLat || lon < minLon || lon > maxLon) {
+    alert("あなたは出席登録の許可範囲外にいるか，位置情報の提供を許可していないため，出席登録できせん。\n スマホの「設定」でWebブラウザアプリに位置情報を有効にしているかを確認し，\n Mapアプリで現在地を確認・更新した後に，このページを再読み込みし，\n 位置情報を許可して登録してください。");
+    return;
+  }
+
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", "<?!= apiURL ?>", true); // APIのURLを動的に取得
+  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === XMLHttpRequest.DONE) {
+      if (xhr.status === 200) {
+        alert(JSON.parse(xhr.responseText).msg);
+      } else {
+        alert('出席・位置情報登録システムへの送信でエラーが発生しました。\n出席情報は登録されていません。');
+      }
+    }
+  };
+  xhr.send("id=" + id + "&lat=" + lat + "&lon=" + lon + "&device=" + device);
+}
+
+// デバイス固有IDの取得
+function generateDeviceID() {
+  var deviceID = localStorage.getItem('deviceID');
+  if (!deviceID) {
+    // UUIDから取得
+    if (window.crypto && window.crypto.getRandomValues) {
+      var array = new Uint32Array(4);
+      window.crypto.getRandomValues(array);
+      deviceID = array.join('-');
+    } else {
+      // 時間と乱数によるID生成
+      deviceID = 'id' + new Date().getTime() + '-' + Math.floor(Math.random() * 1000);
+    }
+    localStorage.setItem('deviceID', deviceID);
+  }
+  return deviceID;
+}
+
+document.getElementById('device').value = generateDeviceID();
+
+// 位置情報の取得
+if (navigator.geolocation) {
+  navigator.geolocation.getCurrentPosition(
+    function(position) {
+      document.getElementById('lat').value = position.coords.latitude;
+      document.getElementById('lon').value = position.coords.longitude;
+      // 位置情報の取得が成功したら submit ボタンを有効にする
+      document.getElementById('submit-button').disabled = false;
+    },
+    function(error) {
+      // エラーハンドリング
+      switch(error.code) {
+        case error.PERMISSION_DENIED:
+          alert("位置情報の提供が許可されていません。位置情報の提供を許可してください。");
+          break;
+        case error.POSITION_UNAVAILABLE:
+          alert("位置情報の取得ができませんでした。");
+          break;
+        case error.TIMEOUT:
+          alert("位置情報の取得がタイムアウトしました。");
+          break;
+        case error.UNKNOWN_ERROR:
+          alert("位置情報の取得中に不明なエラーが発生しました。");
+          break;
+        default:
+          alert("位置情報の取得時にエラーが発生しました。エラーコード: " + error.code);
+      }
+      // 位置情報の取得に失敗した場合は submit ボタンを無効にする
+      document.getElementById('submit-button').disabled = true;
+    }
+  );
+} else {
+  alert("お使いのブラウザは位置情報の取得に対応していません。");
+}
+</script>
+</body>
+</html>
