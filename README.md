@@ -17,10 +17,11 @@
 ### IV.　必要に応じて，code.gsのパラメータを変更する。
   パラメータ内容: 重複入力不可の時間
 ### V. デプロイメントをおこなう。
-
 <p>以上の手順を踏むことで，動作します。<br>
 
-参考にさせていただいたサイト<br>
+ ### 注意事項: 商用利用はお断りいたします。
+
+ 参考にさせていただいたサイト<br>
 https://qiita.com/tamoco/items/8d0d6ef0df6c4c605a08<br>
 こちらのサイトのおかげで，作成することができました。<br>
 このほか，javascript関連，ならびにCORSエラーの回避法など，多くのサイトを参考にさせていただきました。感謝いたします。</p>
@@ -48,6 +49,8 @@ When the GAS web app URL is opened, the form screen is displayed, and attendance
 
 <p>The above steps will make the application work.<br>
 
+ ### Note: Commercial use is not permitted.
+ 
 referenced site<br>
 https://qiita.com/tamoco/items/8d0d6ef0df6c4c605a08<br>
 Special thanks to @tamoco.<br>
