@@ -19,12 +19,13 @@
 ### V. デプロイメントをおこなう。
 <p>以上の手順を踏むことで，動作します。<br>
 
- ### 注意事項: 商用利用はお断りいたします。
+ 
 
  参考にさせていただいたサイト<br>
 https://qiita.com/tamoco/items/8d0d6ef0df6c4c605a08<br>
 こちらのサイトのおかげで，作成することができました。<br>
 このほか，javascript関連，ならびにCORSエラーの回避法など，多くのサイトを参考にさせていただきました。感謝いたします。</p>
+### 注意事項: 商用利用はご遠慮ください。
 
 # ===README in Eng.===
 This is an attendance form that works as a GAS in GoogleSpreadSheet. It was created for the purpose of surveying attendance at a university.<br>
@@ -48,10 +49,9 @@ When the GAS web app URL is opened, the form screen is displayed, and attendance
 ### V. Perform deployment.
 
 <p>The above steps will make the application work.<br>
-
- ### Note: Commercial use is not permitted.
- 
 referenced site<br>
 https://qiita.com/tamoco/items/8d0d6ef0df6c4c605a08<br>
 Special thanks to @tamoco.<br>
 In addition, many other sites related to javascript and workarounds for CORS errors were also helpful. Thank you very much.</p>
+
+ ### Note: Commercial use is not permitted.
