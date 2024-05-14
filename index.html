@@ -52,7 +52,7 @@ input[type=text], button {
   <div class="container">
     <div class="column is-half is-offset-one-quarter">
       <div class="box">
-	  <img src="https://lh3.googleusercontent.com/d/FILE_ID" alt="大学ロゴ" style="display: block; margin-left: auto; margin-right: auto; width: 50%">
+	  <img src="https://lh3.googleusercontent.com/d/FILE_ID_LOGO" alt="大学ロゴ" style="display: block; margin-left: auto; margin-right: auto; width: 50%">
         <h1 class="title has-text-centered" style="margin-top: 1em;">科目名: テスト環境用（xxxx-xxx）を使用可</h1>
         <h1 class="title has-text-centered">出席と位置情報を記録します。<br>必ず『ユーザーの現在地の認識』を許可してください。</h1>
         <form id="attendance-form" onsubmit="submitForm()">
@@ -83,7 +83,7 @@ input[type=text], button {
           <!-- Googleマップへのリンクを追加 -->
           <p class="center-text">
             <a href="https://www.google.co.jp/maps/?entry=ttu" target="_blank" rel="noopener noreferrer">MAPで自分の位置確認</a><br>
-            <a href="https://lh3.googleusercontent.com/d/1gW74HaUkgbwOinHXsyIj31ocNpiKGLHF" target="_blank" rel="noopener noreferrer">ブラウザ「設定」の確認方法</a>
+            <a href="https://lh3.googleusercontent.com/d/FILE_ID_PDF" target="_blank" rel="noopener noreferrer">ブラウザ「設定」の確認方法</a>
           </p>
           <div class="field">
             <div class="control">
@@ -106,7 +106,7 @@ function submitForm() {
   // 学籍番号がリストに含まれているかチェック
   var allowedIds = ['xxxx-xxx'];
   if (!allowedIds.includes(id)) {
-    alert("学籍番号が履修者名簿に登録されていないか，正しい形式ではありません。\n必ず1524-999のように半角で‐付きで入力してください。");
+    alert("学籍番号が履修者名簿に登録されていないか，正しい形式ではありません。\n必ずxxxx-xxxのように半角で‐付きで入力してください。");
     return;
   }
 
