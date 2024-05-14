@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>出席・位置情報登録システム管理用HTML作成フォーム</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+  }
+  h1 {
+    color: #333;
+    text-align: center;
+    padding: 20px 0;
+  }
+  h2 {
+    text-align: center;
+    padding: 14px 0;
+}
+  form {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    width: 80%;
+  }
+
+comment {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    width: 80%;
+  }
+
+  label {
+    margin: 10px 0;
+    color: #666;
+  }
+  select, input, textarea {
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  button {
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  button:hover {
+    background-color: #0056b3;
+  }
+  /* 追加したスタイル */
+#generated-html {
+    width: 80%; /* 幅を80%に設定 */
+    margin: 0 auto; /* 上下のマージンを0、左右のマージンを自動に設定してセンタリング */
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-top: 20px;
+    background-color: #fff;
+    color: #333;
+    white-space: pre-wrap; /* 改行を反映 */
+    word-wrap: break-word; /* 長いテキストを折り返し */
+  }
+</style>
+</head>
+<body>
+<div id="form-section">
+<form id="settings-form">
+  <label for="course">科目名:</label>
+    <input id="course" class="input" type="text" placeholder="科目名を入力" required>
+  <label for="color-select">背景色:</label>
+  <select id="color-select">
+    <option value="#f0f0f0">グレー</option>
+    <option value="#ffe6e6">ピンク</option>
+    <option value="#e6ffe6">グリーン</option>
+    <option value="#e6e6ff">ブルー</option>
+    <option value="#ffffe6">イエロー</option>
+  </select>
+  <label for="day-select">授業曜日:</label>
+  <select id="day-select">
+　　　<option value="0 && day !== 1 && day !== 2 && day !== 3 && day !== 4 && day !== 5 && day !== 6 ">指定なし（テスト環境用）</option>
+    <option value="1">月曜日</option>
+    <option value="2">火曜日</option>
+    <option value="3">水曜日</option>
+    <option value="4">木曜日</option>
+    <option value="5">金曜日</option>
+    <option value="6">土曜日</option>
+    <option value="0">日曜日</option>
+  </select>
+
+  <label for="start-hour-select">出席情報入力の受付開始時刻:</label>
+  <div style="display: flex; align-items: center;">
+  <select id="start-hour-select" style="margin-right: 5px;">
+    <!-- 24時間制の時間をリスト化 -->
+    <option value="9">09</option>
+    <option value="10">10</option>
+    <option value="11">11</option>
+    <option value="12">12</option>
+    <option value="13">13</option>
+    <option value="14">14</option>
+    <option value="15">15</option>
+    <option value="16">16</option>
+    <option value="17">17</option>
+    <option value="18">18</option>
+    <option value="19">19</option>
+    <option value="20">20</option>
+    <option value="21">21</option>
+    <option value="22">22</option>
+    <option value="23">23</option>
+    <option value="0">00</option>
+    <option value="1">01</option>
+    <option value="2">02</option>
+    <option value="3">03</option>
+    <option value="4">04</option>
+    <option value="5">05</option>
+    <option value="6">06</option>
+    <option value="7">07</option>
+    <option value="8">08</option>
+  </select>
+  <span><B>:</B></span>
+  <select id="start-minute-select" style="margin-left: 5px;">
+    <!-- 10分単位でリスト化 -->
+    <option value="0">00</option>
+    <option value="10">10</option>
+    <option value="20">20</option>
+    <option value="30">30</option>
+    <option value="40">40</option>
+    <option value="50">50</option>
+ </select>
+  </div>
+  <label for="duration-select">入力可能時間長:</label>
+  <select id="duration-select">
+    <!-- 10分単位でリスト化 -->
+　　　<option value="1440">制限なし（テスト環境用）</option>
+    <option value="10">10分</option>
+    <option value="20">20分</option>
+    <option value="30">30分</option>
+    <option value="40">40分</option>
+    <option value="50">50分</option>
+    <option value="60">60分</option>
+    <option value="70">70分</option>
+    <option value="80">80分</option>
+    <option value="90">90分</option>
+    <option value="100">100分</option>
+    <option value="110">110分</option>
+	</select>
+
+  <label for="student-ids">学籍番号リスト（形式例: 1524-999) ※EXCELから列データでコピペ可</label>
+  <textarea id="student-ids" rows="10" cols="30" placeholder="改行で区切り，縦に入力してください"></textarea>
+
+  <label for="location-select">緯度と経度の範囲:</label>
+  <select id="location-select">
+    <option value="24,45.5,122.93457,153.986672">日本全域（テスト環境用）</option>
+    <option value="24,45.5,122.93457,153.986672">xxキャンパスYY校舎</option>
+	<option value="24,45.5,122.93457,153.986672">ZZキャンパスaa校舎</option>
+  </select>
+
+  <button type="button" id="generate-button" onclick="generateHTML()">HTML生成！</button>
+</form>
+
+<h2>生成されたHTML</h2>
+<p><center>※枠内をコピー⇒GoogleAppsScript⇒出席・位置情報システムWebAppテンプレートのindex.htmlの内容を全選択後⇒貼り付け</center></p>
+<pre id="generated-html"></pre>
+
+<script>
+function generateHTML() {
+  var courseInput = document.getElementById('course').value;
+  var courseName = courseInput ? '科目名: ' + courseInput : '';
+  var colorSelect = document.getElementById('color-select').value;
+  var daySelect = document.getElementById('day-select');
+  var startHourSelect = document.getElementById('start-hour-select');
+  var startMinuteSelect = document.getElementById('start-minute-select');
+  var durationSelect = document.getElementById('duration-select');
+  //var studentIds = document.getElementById('student-ids').value.split('\n').map(s => `'${s.trim()}'`);
+  //var studentIds = document.getElementById('student-ids').value.trim().split('\n').map(s => `'${s.trim()}'`);
+  var studentIdsInput = document.getElementById('student-ids').value;
+  if (!studentIdsInput) {
+    alert('学籍番号リストが未入力です。テスト用でも必ず1件は入力してください。');
+    return;
+  }
+  var studentIds = studentIdsInput.trim().split('\n').map(s => `'${s.trim()}'`);
+  var locationSelect = document.getElementById('location-select').value.split(',');
+  var minLat = locationSelect[0], maxLat = locationSelect[1], minLon = locationSelect[2], maxLon = locationSelect[3];
+
+  // 開始時間と授業時間を分単位に変換
+  var durationSelectValue = parseInt(durationSelect.value);
+  var startTimeInMinutes, endTimeInMinutes;
+
+  if (durationSelectValue === 1440) { // 24時間の場合
+    startTimeInMinutes = 0; // 開始時刻を0時00分に設定
+    endTimeInMinutes = 1439; // 終了時刻を23時59分に設定
+  } else { // それ以外の場合
+    // 通常の開始時刻と終了時刻の計算
+    startTimeInMinutes = parseInt(startHourSelect.value) * 60 + parseInt(startMinuteSelect.value);
+    endTimeInMinutes = startTimeInMinutes + durationSelectValue;
+  }
+
+  var html = `&lt;!DOCTYPE html&gt;
+&lt;html lang="ja"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;title&gt;出席・位置情報登録システム&lt;/title&gt;
+  &lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css"&gt;
+&lt;style&gt;
+input[type=text], button {
+	width: 100%;
+	padding: 10px 18px;
+	margin: 6px 0;
+	display: inline-block;
+	border: 1px solid #ccc;
+	box-sizing: border-box;
+}
+ .title {
+  font-size: 18px;
+  text-align: center; 
+  color: black;
+  }
+  /* スマートフォンの縦画面に最適化 */
+  @media screen and (max-width: 480px) {
+    .container {
+      width: 100%;
+      padding: 0 20px;
+    }
+    .column {
+      width: 100%;
+      margin: 0 auto;
+    }
+    }
+	.box {
+	background-color: ${colorSelect};
+	}
+ .label {
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center; 
+  }
+  #submit-button {
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center; 
+  }
+  .center-text {
+  text-align: center;
+  }
+&lt;/style&gt;
+
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;div class="container"&gt;
+    &lt;div class="column is-half is-offset-one-quarter"&gt;
+      &lt;div class="box"&gt;
+	  &lt;img src="https://lh3.googleusercontent.com/d/FILE-ID_LOGO" alt="大学ロゴ" style="display: block; margin-left: auto; margin-right: auto; width: 50%"&gt;
+        &lt;h1 class="title has-text-centered" style="margin-top: 1em;"&gt;${courseName}&lt;/h1&gt;
+        &lt;h1 class="title has-text-centered"&gt;出席と位置情報を記録します。<br>必ず『ユーザーの現在地の認識』を許可してください。&lt;/h1&gt;
+        &lt;form id="attendance-form" onsubmit="submitForm()"&gt;
+          &lt;div class="field"&gt;
+            &lt;!--    &lt;label class="label"&gt;学籍番号&lt;/label&gt; --&gt;
+            &lt;div class="control"&gt;
+              &lt;input id="id" class="input" type="text" placeholder="学籍番号 (例:1524-999) を入力" required&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+          &lt;div class="field"&gt;
+            &lt;!--  &lt;label class="label"&gt;デバイス固有ID&lt;/label&gt; --&gt;
+            &lt;div class="control"&gt;
+              &lt;input id="device" class="input" type="hidden" placeholder="デバイス固有IDを取得中..." readonly required&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+          &lt;div class="field"&gt;
+            &lt;!--  &lt;label class="label"&gt;緯度&lt;/label&gt; --&gt;
+            &lt;div class="control"&gt;
+              &lt;input id="lat" class="input" type="hidden" placeholder="現在の緯度を取得中..." readonly required&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+          &lt;div class="field"&gt;
+            &lt;!-- &lt;label class="label"&gt;経度&lt;/label&gt; --&gt;
+            &lt;div class="control"&gt;
+              &lt;input id="lon" class="input" type="hidden" placeholder="現在の経度を取得中..." readonly required&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+          &lt;!-- Googleマップへのリンクを追加 --&gt;
+          &lt;p class="center-text"&gt;
+            &lt;a href="https://www.google.co.jp/maps/?entry=ttu" target="_blank" rel="noopener noreferrer"&gt;MAPで自分の位置確認&lt;/a&gt;&lt;br&gt;
+            &lt;a href="https://lh3.googleusercontent.com/d/FILE-ID_PDF" target="_blank" rel="noopener noreferrer"&gt;ブラウザ「設定」の確認方法&lt;/a&gt;
+          &lt;/p&gt;
+          &lt;div class="field"&gt;
+            &lt;div class="control"&gt;
+              &lt;button id="submit-button" type="submit" class="button is-info"&gt;出席登録&lt;/button&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/form&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;script&gt;
+function submitForm() {
+  event.preventDefault();
+  var id = document.getElementById('id').value;
+  var device = document.getElementById('device').value;
+  var lat = parseFloat(document.getElementById('lat').value);
+  var lon = parseFloat(document.getElementById('lon').value);
+
+
+  // 学籍番号がリストに含まれているかチェック
+  var allowedIds = [${studentIds.join(",")}];
+  if (!allowedIds.includes(id)) {
+    alert("学籍番号が履修者名簿に登録されていないか，正しい形式ではありません。\\n必ずxxxx-xxxのように半角で‐付きで入力してください。");
+    return;
+  }
+
+  // クライアント側の現在時刻を取得
+  var now = new Date();
+  var day = now.getDay();
+  var hour = now.getHours();
+  var minute = now.getMinutes();
+
+  // 曜日判定
+  if (day !== ${daySelect.value}) {
+    alert("現在は出席入力期間外です（曜日判定）。");
+    return;
+  }
+
+  // 時間比較
+  var timeInMinutes = hour * 60 + minute;
+  if (!(timeInMinutes &gt;= ${startTimeInMinutes} && timeInMinutes &lt;= ${endTimeInMinutes})) {
+    alert("現在は出席入力期間外です（時間判定）。");
+    return;
+  }
+
+  // 緯度・経度が指定範囲内にあるかチェック
+  var minLat = ${minLat}, maxLat = ${maxLat}, minLon = ${minLon}, maxLon = ${maxLon};
+  if (lat &lt; minLat || lat &gt; maxLat || lon &lt; minLon || lon &gt; maxLon) {
+    alert("あなたは出席登録の許可範囲外にいるか位置情報がズレているため，出席登録できせん。\\n Mapアプリで現在地を確認・更新した後に，このページを再読み込みし，\\n 出席・位置情報を登録してください。");
+    return;
+  }
+
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", "&lt;?!= apiURL ?&gt;", true); // APIのURLを動的に取得
+  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === XMLHttpRequest.DONE) {
+      if (xhr.status === 200) {
+        alert(JSON.parse(xhr.responseText).msg);
+      } else {
+        alert('出席・位置情報登録システムへの送信でエラーが発生しました。\\n出席情報は登録されていません。');
+      }
+    }
+  };
+  xhr.send("id=" + id + "&lat=" + lat + "&lon=" + lon + "&device=" + device);
+}
+
+// デバイス固有IDの取得
+function generateDeviceID() {
+  var deviceID = localStorage.getItem('deviceID');
+  if (!deviceID) {
+    // UUIDから取得
+    if (window.crypto && window.crypto.getRandomValues) {
+      var array = new Uint32Array(4);
+      window.crypto.getRandomValues(array);
+      deviceID = array.join('-');
+    } else {
+      // 時間と乱数によるID生成
+      deviceID = 'id' + new Date().getTime() + '-' + Math.floor(Math.random() * 1000);
+    }
+    localStorage.setItem('deviceID', deviceID);
+  }
+  return deviceID;
+}
+
+document.getElementById('device').value = generateDeviceID();
+
+// 位置情報の取得
+if (navigator.geolocation) {
+  navigator.geolocation.getCurrentPosition(
+    function(position) {
+      document.getElementById('lat').value = position.coords.latitude;
+      document.getElementById('lon').value = position.coords.longitude;
+      // 位置情報の取得が成功したら submit ボタンを有効にする
+      document.getElementById('submit-button').disabled = false;
+    },
+    function(error) {
+      // エラーハンドリング
+      switch(error.code) {
+        case error.PERMISSION_DENIED:
+          alert("ブラウザで位置情報の提供が許可されていません。\\n画面内の『ブラウザ「設定」の確認方法』を参照して，\\n位置情報の提供を許可した後，このページを再読み込みしてください。");
+          break;
+        case error.POSITION_UNAVAILABLE:
+          alert("位置情報の取得ができませんでした。");
+          break;
+        case error.TIMEOUT:
+          alert("位置情報の取得がタイムアウトしました。");
+          break;
+        case error.UNKNOWN_ERROR:
+          alert("位置情報の取得中に不明なエラーが発生しました。");
+          break;
+        default:
+          alert("位置情報の取得時にエラーが発生しました。エラーコード: " + error.code);
+      }
+      // 位置情報の取得に失敗した場合は submit ボタンを無効にする
+      document.getElementById('submit-button').disabled = true;
+    }
+  );
+} else {
+  alert("このブラウザは位置情報の取得に対応していません。");
+}
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;`;
+
+ //document.getElementById('generated-html').textContent = html;
+ document.getElementById('generated-html').textContent = html.replace(/&lt;/g, '<').replace(/&gt;/g, '>');
+}
+document.getElementById('generate-button').addEventListener('click', generateHTML);
+document.getElementById('generated-html').addEventListener('click', function() {
+  var range = document.createRange();
+  range.selectNodeContents(this);
+  var sel = window.getSelection();
+  sel.removeAllRanges();
+  sel.addRange(range);
+});
+
+</script>
+</div>
+</body>
+</html>
