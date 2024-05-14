@@ -2,20 +2,22 @@
 このGASはWebアプリとしてデプロイして利用します。<br>
 GASのWebアプリURLを開くと，フォーム画面が表示され，回答すると，SpreadSheetに出席が記録されます。</p>
 
-# <準備>
-## I.スプレッドシートには事前に”名簿”，”出席”，”集計”シートを事前準備しておく必要があります。以下に各シートの列配置を示します。<br>
-### 1. 名簿シート
+## このGASを用いたフォームの特徴は，GPS情報から，学内に居るかを判定する。同じデバイス情報で，一定時間内に異なる学籍番号による出席登録を拒否。学籍リストによる誤入力の防止。出席をとる曜日・時間と長さを定義可能という点です。
+
+### <準備>
+### I.スプレッドシートには事前に”名簿”，”出席”，”集計”シートを事前準備しておく必要があります。以下に各シートの列配置を示します。<br>
+#### 1. 名簿シート
  A列: 学籍番号，B列: 氏名 
-### 2. 出席シート(フォームからの入力内容)
+#### 2. 出席シート(フォームからの入力内容)
  A列: 学籍番号，B列: 緯度，C列: 経度, D列: DeviceID, E列: 入力日
-### 3. 集計シート
+#### 3. 集計シート
  A列: 学籍番号（名簿シートからコピー参照），B列: 氏名（名簿シートからコピー参照）, C列: 出席回数(CountIF関数を出席シートから拾うようにしておく)
-## II. GoogleSpreadSheetのGoogleAppsScriptを開き，Code.gsとindex.htmlを作成。そこに，本コード内容を貼り付けます。
-## III. 必要に応じて，index.htmlのパラメータを変更する。
+### II. GoogleSpreadSheetのGoogleAppsScriptを開き，Code.gsとindex.htmlを作成。そこに，本コード内容を貼り付けます。
+### III. 必要に応じて，index.htmlのパラメータを変更する。
  パラメータ内容: 許可位置情報（経度，緯度），科目名，曜日・開始時間・出席入力可能時間，学籍番号リスト，大学ロゴ，背景色，位置情報許可の設定解説ファイルURL
-## IV.　必要に応じて，code.gsのパラメータを変更する。
+### IV.　必要に応じて，code.gsのパラメータを変更する。
   パラメータ内容: 重複入力不可の時間
-## V. デプロイメントをおこなう。
+### V. デプロイメントをおこなう。
 
 <p>以上の手順を踏むことで，動作します。<br>
 
@@ -29,20 +31,21 @@ This is an attendance form that works as a GAS in GoogleSpreadSheet. It was crea
 This GAS is deployed and used as a web app.<br>
 When the GAS web app URL is opened, the form screen is displayed, and attendance is recorded in SpreadSheet when the user answers.</p>
 
-# <Preparation>
-## I. The "Roster", "Attendance", and "Total" sheets must be prepared in advance in SpreadSheet. The column layout of each sheet is shown below. 1.
-### 1. name list sheet
+## The feature of this GAS-based form is to determine whether the student is on campus based on GPS information. Reject attendance registration by different student ID numbers within a certain period of time using the same device information. Prevention of wrong entry by the student registration list. The day of the week, time, and length of attendance can be defined.
+## <Preparation>
+### I. The "Name list", "Attendance", and "Total" sheets must be prepared in advance in SpreadSheet. The column layout of each sheet is shown below. 1.
+#### 1. Name list sheet
  　Column A: Student ID number, Column B: Name  
-### 2. Attendance sheet (input from the form)
+#### 2. Attendance sheet (input from the form)
  　Column A: Student ID, Column B: Latitude, Column C: Longitude, Column D: DeviceID, Column E: Date of entry
-### 3. tally sheet
+#### 3. Total sheet
  　Column A: Student ID (copied from the roster sheet), Column B: Name (copied from the roster sheet), Column C: Attendance count (make sure that the CountIF function is picked up from the attendance sheet)
-## II. Open GoogleAppsScript of GoogleSpreadSheet and create Code.gs and index.html. Paste the contents of this code there.
-## III. If necessary, change the parameters of index.html.
+### II. Open GoogleAppsScript of GoogleSpreadSheet and create Code.gs and index.html. Paste the contents of this code there.
+### III. If necessary, change the parameters of index.html.
 　　Parameter contents: Permitted location information (longitude, latitude), course name, day of the week, start time, available time for attendance input, student ID number list, university logo, background color, URL of file explaining location information permission settings
-## IV. Change the parameters of code.gs as necessary.
+### IV. Change the parameters of code.gs as necessary.
    Parameter contents: Time when duplicate entry is not allowed
-## V. Perform deployment.
+### V. Perform deployment.
 
 <p>The above steps will make the application work.<br>
 
