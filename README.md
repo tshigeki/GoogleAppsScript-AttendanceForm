@@ -443,7 +443,7 @@ style='font-size:10.5pt'></span></p>
 style='font-size:10.5pt'>https://qiita.com/tamoco/items/8d0d6ef0df6c4c605a08</span></p>
 
 <p class=MsoNormal style='line-height:16.0pt'><span &gt;
-style='font-size:10.5pt'>Thanks to this site, I was able to create this site.</span></p>
+style='font-size:10.5pt'>Thanks to above site, I was able to create these (code.gs index.html) scripts.</span></p>
 
 <p class=MsoNormal style='line-height:16.0pt'><span &gt;
 style='font-size:10.5pt'>In addition, many other sites related to javascript
