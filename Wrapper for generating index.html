@@ -71,7 +71,11 @@ comment {
 <body>
 <div id="form-section">
 <form id="settings-form">
-  <label for="course">科目名:</label>
+　　<label for="file-id-logo">大学ロゴファイルGoogleドライブ共有ID（透過色設定PNG）:</label>
+    <input id="file-id-logo" class="input" type="text" placeholder="デフォルトロゴ: 1JCyhtGuR1u9Aa1osZfHyFn0J6aU_i2SY">
+　　<label for="file-id-Phone-Setting">利用者のスマホGPS設定などの説明を画像化したファイルGoogleドライブ共有ID（PNG）:</label>
+    <input id="file-id-Phone-Setting" class="input" type="text" placeholder="デフォルト説明イメージ: 1Y66VLTwhaTH8P7pp7h91Dp8jWgPpVroG">
+　　<label for="course">科目名:</label>
     <input id="course" class="input" type="text" placeholder="科目名を入力" required>
   <label for="color-select">背景色:</label>
   <select id="color-select">
@@ -149,13 +153,14 @@ comment {
     <option value="100">100分</option>
     <option value="110">110分</option>
 	</select>
-
-  <label for="student-ids">学籍番号リスト（形式例: 1524-999) ※EXCELから列データでコピペ可</label>
+    <!-- 学籍番号の形式例を示す -->
+  <label for="student-ids">学籍番号リスト（形式例: xxxx-xxx) ※EXCELから列データでコピペ可</label>
   <textarea id="student-ids" rows="10" cols="30" placeholder="改行で区切り，縦に入力してください"></textarea>
 
   <label for="location-select">緯度と経度の範囲:</label>
   <select id="location-select">
     <option value="24,45.5,122.93457,153.986672">日本全域（テスト環境用）</option>
+    <!-- 各校舎の緯度と経度の最小値と最大値の範囲を指定 -->
     <option value="24,45.5,122.93457,153.986672">xxキャンパスYY校舎</option>
 	<option value="24,45.5,122.93457,153.986672">ZZキャンパスaa校舎</option>
   </select>
@@ -199,7 +204,18 @@ function generateHTML() {
     startTimeInMinutes = parseInt(startHourSelect.value) * 60 + parseInt(startMinuteSelect.value);
     endTimeInMinutes = startTimeInMinutes + durationSelectValue;
   }
-
+  //ロゴと説明（イメージ化）ファイルのGoogleドライブ共有ID
+  var fileIdLogo = document.getElementById('file-id-logo').value;
+  var fileIdLogoInput = document.getElementById('file-id-logo');
+  var fileIdLogo = fileIdLogoInput.value || "1jRIEHAozJD7ybnTKMIRVY1hYLLX1dkox"; // 入力がない場合はデフォルト値を設定
+   fileIdLogoInput.placeholder = "デフォルトロゴ: 1jRIEHAozJD7ybnTKMIRVY1hYLLX1dkox";
+   fileIdLogoInput.value = fileIdLogo;
+  var fileIdPhoneSeting = document.getElementById('file-id-Phone-Setting').value;
+  var fileIdPhoneSetingInput = document.getElementById('file-id-Phone-Setting');
+  var fileIdPhoneSetting = fileIdPhoneSetingInput.value || "1Y66VLTwhaTH8P7pp7h91Dp8jWgPpVroG"; // 入力がない場合はデフォルト値を設定
+   fileIdPhoneSetingInput.placeholder = "デフォルト説明イメージ: 1Y66VLTwhaTH8P7pp7h91Dp8jWgPpVroG";
+   fileIdPhoneSetingInput.value = fileIdPhoneSetting;
+   
   var html = `&lt;!DOCTYPE html&gt;
 &lt;html lang="ja"&gt;
 &lt;head&gt;
@@ -254,14 +270,15 @@ input[type=text], button {
   &lt;div class="container"&gt;
     &lt;div class="column is-half is-offset-one-quarter"&gt;
       &lt;div class="box"&gt;
-	  &lt;img src="https://lh3.googleusercontent.com/d/FILE-ID_LOGO" alt="大学ロゴ" style="display: block; margin-left: auto; margin-right: auto; width: 50%"&gt;
+	  &lt;img src="https://lh3.googleusercontent.com/d/${fileIdLogo}" alt="大学ロゴ" style="display: block; margin-left: auto; margin-right: auto; width: 50%"&gt;
         &lt;h1 class="title has-text-centered" style="margin-top: 1em;"&gt;${courseName}&lt;/h1&gt;
         &lt;h1 class="title has-text-centered"&gt;出席と位置情報を記録します。<br>必ず『ユーザーの現在地の認識』を許可してください。&lt;/h1&gt;
         &lt;form id="attendance-form" onsubmit="submitForm()"&gt;
           &lt;div class="field"&gt;
             &lt;!--    &lt;label class="label"&gt;学籍番号&lt;/label&gt; --&gt;
             &lt;div class="control"&gt;
-              &lt;input id="id" class="input" type="text" placeholder="学籍番号 (例:1524-999) を入力" required&gt;
+			    &lt;!-- 学籍番号の形式例を示す --&gt;
+              &lt;input id="id" class="input" type="text" placeholder="学籍番号 (例:xxxx-xxx) を入力" required&gt;
             &lt;/div&gt;
           &lt;/div&gt;
           &lt;div class="field"&gt;
@@ -285,7 +302,7 @@ input[type=text], button {
           &lt;!-- Googleマップへのリンクを追加 --&gt;
           &lt;p class="center-text"&gt;
             &lt;a href="https://www.google.co.jp/maps/?entry=ttu" target="_blank" rel="noopener noreferrer"&gt;MAPで自分の位置確認&lt;/a&gt;&lt;br&gt;
-            &lt;a href="https://lh3.googleusercontent.com/d/FILE-ID_PDF" target="_blank" rel="noopener noreferrer"&gt;ブラウザ「設定」の確認方法&lt;/a&gt;
+            &lt;a href="https://lh3.googleusercontent.com/d/${fileIdPhoneSetting}" target="_blank" rel="noopener noreferrer"&gt;ブラウザ「設定」の確認方法&lt;/a&gt;
           &lt;/p&gt;
           &lt;div class="field"&gt;
             &lt;div class="control"&gt;
