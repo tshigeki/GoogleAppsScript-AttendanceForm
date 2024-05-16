@@ -30,7 +30,7 @@ input[type=text], button {
     }
     }
 	.box {
-	background-color: #ffe6e6;
+	background-color: #f0f0f0;
 	}
  .label {
   font-size: 18px;
@@ -52,13 +52,14 @@ input[type=text], button {
   <div class="container">
     <div class="column is-half is-offset-one-quarter">
       <div class="box">
-	  <img src="https://lh3.googleusercontent.com/d/FILE_ID_LOGO" alt="大学ロゴ" style="display: block; margin-left: auto; margin-right: auto; width: 50%">
-        <h1 class="title has-text-centered" style="margin-top: 1em;">科目名: テスト環境用（xxxx-xxx）を使用可</h1>
+	  <img src="https://lh3.googleusercontent.com/d/1jRIEHAozJD7ybnTKMIRVY1hYLLX1dkox" alt="大学ロゴ" style="display: block; margin-left: auto; margin-right: auto; width: 50%">
+        <h1 class="title has-text-centered" style="margin-top: 1em;"></h1>
         <h1 class="title has-text-centered">出席と位置情報を記録します。<br>必ず『ユーザーの現在地の認識』を許可してください。</h1>
         <form id="attendance-form" onsubmit="submitForm()">
           <div class="field">
             <!--    <label class="label">学籍番号</label> -->
             <div class="control">
+			    <!-- 学籍番号の形式例を示す -->
               <input id="id" class="input" type="text" placeholder="学籍番号 (例:xxxx-xxx) を入力" required>
             </div>
           </div>
@@ -83,7 +84,7 @@ input[type=text], button {
           <!-- Googleマップへのリンクを追加 -->
           <p class="center-text">
             <a href="https://www.google.co.jp/maps/?entry=ttu" target="_blank" rel="noopener noreferrer">MAPで自分の位置確認</a><br>
-            <a href="https://lh3.googleusercontent.com/d/FILE_ID_PDF" target="_blank" rel="noopener noreferrer">ブラウザ「設定」の確認方法</a>
+            <a href="https://lh3.googleusercontent.com/d/1Y66VLTwhaTH8P7pp7h91Dp8jWgPpVroG" target="_blank" rel="noopener noreferrer">ブラウザ「設定」の確認方法</a>
           </p>
           <div class="field">
             <div class="control">
@@ -129,10 +130,10 @@ function submitForm() {
     return;
   }
 
-  // 緯度・経度が指定範囲内にあるかチェック(サンプルは日本全国)
+  // 緯度・経度が指定範囲内にあるかチェック
   var minLat = 24, maxLat = 45.5, minLon = 122.93457, maxLon = 153.986672;
   if (lat < minLat || lat > maxLat || lon < minLon || lon > maxLon) {
-    alert("あなたは出席登録の許可範囲外にいるか，位置情報の提供を許可していないため，出席登録できせん。\n スマホの「設定」でWebブラウザアプリに位置情報を有効にしているかを確認し，\n Mapアプリで現在地を確認・更新した後に，このページを再読み込みし，\n 位置情報を許可して登録してください。");
+    alert("あなたは出席登録の許可範囲外にいるか位置情報がズレているため，出席登録できせん。\n Mapアプリで現在地を確認・更新した後に，このページを再読み込みし，\n 出席・位置情報を登録してください。");
     return;
   }
 
@@ -184,7 +185,7 @@ if (navigator.geolocation) {
       // エラーハンドリング
       switch(error.code) {
         case error.PERMISSION_DENIED:
-          alert("位置情報の提供が許可されていません。位置情報の提供を許可してください。");
+          alert("ブラウザで位置情報の提供が許可されていません。\n画面内の『ブラウザ「設定」の確認方法』を参照して，\n位置情報の提供を許可した後，このページを再読み込みしてください。");
           break;
         case error.POSITION_UNAVAILABLE:
           alert("位置情報の取得ができませんでした。");
@@ -203,7 +204,7 @@ if (navigator.geolocation) {
     }
   );
 } else {
-  alert("お使いのブラウザは位置情報の取得に対応していません。");
+  alert("このブラウザは位置情報の取得に対応していません。");
 }
 </script>
 </body>
